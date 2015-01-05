@@ -1,0 +1,48 @@
+<h2>Profile Settings: <span class="upperCase">{{userData.username}}</span></h2>
+<br>
+<alert type="showAlert.type" ng-show="showAlert">{{showAlert.message}}</alert>
+<form ng-submit="saveProfile()">
+  <div class="row">
+    <div class="large-4 columns" style="text-align: center;">
+	    <a class="th radius" href="#">
+			<img ng-src="http://www.untap.in/img/avatars/{{userData.avatar}}?{{dater}}" style="height: 150px;">
+		</a>
+	    <a class="th radius" href="#">
+			<img ng-src="http://www.untap.in/backs/{{userData.deckBack}}.jpg" style="height: 150px;">
+		</a>
+    </div>
+    
+    <div class="large-4 columns">
+      <label>Avatar
+        <helptip tip="Upload in game Avatar, JPG only supported. Max filesize 150kb"></helptip>
+        <upload max-size="150000" file-extentions="jpg" ctrl-model="avatarUpload"></upload>
+      </label>
+      <label ng-show="userData.donate == 'true'">Custom Deck Back
+        <helptip tip="Deck Back, JPG only supported. Max filesize 200kb, 223x310 pixels. See FAQ for more infomation"></helptip>
+        <uploadfile max-size="200000" file-extentions="jpg" ctrl-model="deckbackUpload"></uploadfile>
+      </label>
+      <label>Deck Back
+        <helptip tip="Unlock more deck backs from the funding page."></helptip>
+        <select ng-model="userData.deckBack" ng-options="deck for deck in userData.unlockedDecks"></select>
+      </label>
+    </div>
+    <div class="large-4 columns">
+      <label>Email Address
+        <input type="email" placeholder="Email Address" ng-model="userData.email" required/>
+      </label>
+      <a class="button tiny secondary expand" ng-click="validateEmail()" ng-if="g.userData.validemail != 'true'">Validate Email</a>
+      <label>Change Password
+        <input type="password" placeholder="Enter New Password" ng-model="userData.password" />
+      </label>
+      <label>Game Socket Port (testing)
+        <select ng-model="userData.port" ng-options="port for port in userData.ports"></select>
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 columns">
+      <button type="submit" class="right">Save Changes</button>
+    </div>
+  </div>
+</form>
+<a class="close-reveal-modal" ng-click="cancel()">&#215;</a>
